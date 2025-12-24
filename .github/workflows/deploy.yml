@@ -36,19 +36,19 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            # Navigate to project directory
-            cd /home/${{ secrets.EC2_USERNAME }}/SmartParking
+            # Navigate to project directory (lowercase)
+            cd ~/smartparking
             
             # Pull latest code
             git pull origin main || git pull origin master
             
-            # Pull latest Docker image
+            # Pull latest Docker image from Docker Hub
             docker pull satyampr01/smartparking:latest
             
             # Stop running containers
             docker-compose down
             
-            # Remove old images
+            # Remove old images to free space
             docker system prune -af
             
             # Start containers with latest image
